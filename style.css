@@ -109,3 +109,37 @@ nav{position:static;grid-template-columns:repeat(4,1fr);border-color:#21573f;bac
 
 /* V10.9: blue winner result */
 .viewerCard .viewerTeams>b{background:#0b2f5b;color:#7dc7ff;border:1px solid #1d78c1;border-radius:999px;padding:6px 10px;}
+
+/* V10.10 — Picklebeer arena background + compact player controls */
+body{
+  background:
+    radial-gradient(circle at 8% 18%,rgba(89,255,111,.16) 0 2px,transparent 3px),
+    radial-gradient(circle at 93% 24%,rgba(217,255,22,.12) 0 3px,transparent 4px),
+    linear-gradient(115deg,rgba(27,103,51,.26),transparent 23%),
+    linear-gradient(245deg,rgba(22,119,55,.18),transparent 25%),
+    radial-gradient(circle at 50% -10%,#123b28 0,#071b1c 31%,#031015 68%,#020b0f 100%);
+  background-attachment:fixed;
+}
+body:before,body:after{content:"";position:fixed;pointer-events:none;z-index:-1;opacity:.34;filter:drop-shadow(0 0 20px rgba(85,242,119,.15))}
+body:before{left:-95px;bottom:-75px;width:330px;height:330px;border:3px solid rgba(93,239,112,.28);border-radius:50%;box-shadow:inset 0 0 0 38px rgba(43,128,59,.05),0 0 0 18px rgba(217,255,22,.025)}
+body:after{right:-120px;top:180px;width:330px;height:520px;border:2px solid rgba(93,239,112,.16);border-radius:48% 52% 42% 58%;transform:rotate(18deg);background:repeating-linear-gradient(45deg,transparent 0 22px,rgba(85,242,119,.025) 23px 24px)}
+.app,.viewerApp{position:relative;z-index:1}
+.app:before{content:"PLAY HARD   •   HAVE FUN   •   GOOD VIBES";position:fixed;left:18px;top:52%;transform:rotate(-90deg) translateX(-50%);transform-origin:left top;color:rgba(100,255,125,.16);font-weight:950;font-style:italic;letter-spacing:3px;font-size:15px;pointer-events:none;z-index:-1}
+.app:after{content:"DINK  •  ROTATE  •  REPEAT";position:fixed;right:-62px;bottom:145px;transform:rotate(-90deg);color:rgba(217,255,22,.13);font-weight:950;font-style:italic;letter-spacing:3px;font-size:14px;pointer-events:none;z-index:-1}
+header,.session,nav,.courtCard,.previous,.nextMatch,.preview,.tablewrap,.viewerCard,.viewerLock{backdrop-filter:blur(8px)}
+
+/* Keep player names readable: the Replace action is deliberately compact. */
+.courtsGrid .courtPlayer{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;align-items:center;padding:7px 8px}
+.courtsGrid .courtPlayer b{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;min-width:0}
+.courtsGrid .replaceOne{min-height:26px;width:auto;padding:3px 7px;font-size:9px;line-height:1;border-radius:7px;justify-self:end}
+
+/* Winner actions: blue so they are visually distinct from assignment/replacement controls. */
+.courtsGrid .team>button[data-win]{background:linear-gradient(180deg,#249fff,#0874d4);border:1px solid #54b7ff;color:#fff;box-shadow:0 5px 16px rgba(0,119,220,.22)}
+.winnerPill{background:#0b2f5b!important;color:#8bd0ff!important;border:1px solid #238bd7!important}
+
+@media(max-width:700px){
+ body:before,body:after,.app:before,.app:after{opacity:.16}
+ .courtsGrid .courtPlayer{padding:6px}
+ .courtsGrid .courtPlayer b{font-size:11px}
+ .courtsGrid .replaceOne{font-size:8px;padding:3px 5px;min-height:24px}
+}
