@@ -65,3 +65,44 @@ nav{grid-template-columns:repeat(4,1fr)}
 #nextMatchCourts{margin-top:12px}
 #nextMatchCourts .nextMatch{margin-top:0}
 @media(max-width:360px){.picklebeerMark{width:44px;height:44px;flex-basis:44px}.brand h1{font-size:24px}.brand .clubName{font-size:9px}.brand .clubTagline{font-size:7px}}
+
+
+/* V10.8 — Picklebeer Club dashboard redesign. Functional logic unchanged. */
+:root{--lime:#d9ff16;--green:#55f277;--deep:#061119;--panel2:#081a1f;--gold:#ffd43b}
+body{background:radial-gradient(circle at 18% 0,#123522 0,#07171b 27%,#041016 65%);}
+.app{max-width:1180px;padding:18px 22px 90px}
+header{padding:4px 4px 14px;border-bottom:1px solid #1b523b;margin-bottom:14px}
+.brand{gap:14px}.picklebeerLogo{width:86px;height:86px;object-fit:contain;filter:drop-shadow(0 5px 14px #0008);flex:0 0 auto}
+.brand h1{font-size:42px;font-weight:950;font-style:italic;letter-spacing:-1.8px}.brand h1 span{color:var(--lime)}
+.brand .clubName{color:#fff;font-size:13px;letter-spacing:5px;font-weight:900;margin-top:2px}
+.brand .clubTagline{font-size:9px;color:#e7f0e9;letter-spacing:2px;margin-top:5px}
+.gear{border:1px solid #275a44;background:#0b211e}
+.session{border-color:#1e6c48;background:linear-gradient(120deg,#0b2420,#07171c);box-shadow:0 12px 40px #0004}
+.live{background:linear-gradient(180deg,#72ff91,#37d95b);box-shadow:0 0 16px #55f27744}
+nav{position:static;grid-template-columns:repeat(4,1fr);border-color:#21573f;background:#071a1b}
+.tab.active{background:#103629;color:#7cff91}
+.page[data-page="courts"] .bar:first-child{margin-top:12px}
+.courtsGrid{gap:14px}.courtCard{border:2px solid #3ae46d;background:linear-gradient(150deg,#0c2622,#07181b);box-shadow:0 0 24px #42ef6b18}
+.courtHead{align-items:center;padding-bottom:8px;border-bottom:1px solid #1d6545}.courtHead b{font-size:22px;font-style:italic;color:#72f78e;text-transform:uppercase}.courtHead small{background:var(--lime);color:#101800;border-radius:7px;padding:5px 10px;font-weight:950}
+.courtsGrid .teams{grid-template-columns:1fr 1fr;gap:10px}.team{background:#081a1d;border-color:#246748}.team small{font-weight:900;color:#62f59a}.team button{background:linear-gradient(180deg,#35e768,#17a943);color:#fff}
+#nextMatchCourts .nextMatch{border-color:#286d58;background:linear-gradient(145deg,#0b2323,#07171b)}
+.nextHead>div small{color:#fff}.nextHead>span{background:var(--lime);border:0;color:#111900}.nextReason{background:#102b20}
+.courtsPrevious .previous{border-color:#726b25;background:linear-gradient(145deg,#1a2012,#0a1819)}
+.preview{border-color:#275843;background:#0a1b1b}
+.tablewrap{border-color:#275843}.tablewrap thead{background:#0f2a22}
+.viewerApp{max-width:1180px}.viewerCourtsGrid{gap:14px}.viewerCard{border-color:#286b50}.viewerCourtsGrid .viewerCard{border:2px solid #39df69;background:linear-gradient(150deg,#0b2520,#07171b)}
+.viewerCourtsGrid .courtHead b{font-size:21px}.viewerTeams>span{color:var(--lime);font-size:16px;font-weight:950}
+.viewerLock{border-color:#286b50}
+@media(min-width:900px){
+ .session{display:grid;grid-template-columns:1.3fr 1fr;align-items:center;gap:18px}.session .stats{margin-top:0}
+ .page[data-page="queue"]{max-width:860px;margin:auto}
+ .page[data-page="records"],.page[data-page="history"]{max-width:980px;margin:auto}
+ #nextMatchCourts .nextMatch{padding:18px}.nextTeams{grid-template-columns:1fr 70px 1fr}.nextTeam b{font-size:16px}
+ .courtsPrevious .previous{padding:18px}
+}
+@media(max-width:700px){
+ .app{padding:14px 14px 85px}.picklebeerLogo{width:64px;height:64px}.brand{gap:9px}.brand h1{font-size:30px}.brand .clubName{font-size:9px;letter-spacing:3px}.brand .clubTagline{font-size:7px;letter-spacing:1px}
+ .courtsGrid{grid-template-columns:1fr 1fr;gap:8px}.courtsGrid .card{padding:9px}.courtHead b{font-size:15px}.courtHead small{font-size:8px;padding:4px 6px}.courtsGrid .teams{grid-template-columns:1fr;gap:7px}
+ nav{position:sticky}.viewerCourtsGrid{grid-template-columns:1fr 1fr;gap:8px}.viewerCourtsGrid .viewerCard{padding:10px}.viewerCourtsGrid .courtHead b{font-size:15px}.viewerTeams{grid-template-columns:1fr;gap:6px;text-align:center}.viewerTeams>span{font-size:11px}
+}
+@media(max-width:390px){.picklebeerLogo{width:56px;height:56px}.brand h1{font-size:27px}.brand .clubTagline{display:none}}
