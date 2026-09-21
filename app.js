@@ -3,7 +3,7 @@ const KEY='picklequeue-v2',ARCHIVE_KEY='picklequeue-session-archive-v1';
 const seed=()=>({nextId:1,games:0,waiting:[],all:[],courts:[{id:1,p:[]},{id:2,p:[]}],partners:{},opponents:{},history:[],unavailable:[]});
 let S;try{S=JSON.parse(localStorage.getItem(KEY))||seed()}catch{S=seed()}
 S.partners=S.partners||{};S.opponents=S.opponents||{};S.courts=S.courts||[{id:1,p:[]},{id:2,p:[]}];S.history=S.history||[];S.unavailable=S.unavailable||[];let ARCH=[];
-const FIREBASE={apiKey:'AIzaSyAikcdInDAdp_XUiok3mFCqTh2IDAlcFZQ',databaseURL:'https://picklequeue-live-default-rtdb.asia-southeast1.firebasedatabase.app'};const LIVE_KEY='picklequeue-live-host-v1';let LIVE=null;try{LIVE=JSON.parse(localStorage.getItem(LIVE_KEY))}catch{}let liveSyncTimer=null;const firebaseReady=()=>FIREBASE.apiKey&&!FIREBASE.apiKey.startsWith('PASTE_')&&FIREBASE.databaseURL&&!FIREBASE.databaseURL.startsWith('PASTE_');try{ARCH=JSON.parse(localStorage.getItem(ARCHIVE_KEY))||[]}catch{ARCH=[]}
+const FIREBASE={apiKey:'AIzaSyAikcdInDAdp_XUioK3mFCqTh2IDAlcFZQ',databaseURL:'https://picklequeue-live-default-rtdb.asia-southeast1.firebasedatabase.app'};const LIVE_KEY='picklequeue-live-host-v1';let LIVE=null;try{LIVE=JSON.parse(localStorage.getItem(LIVE_KEY))}catch{}let liveSyncTimer=null;const firebaseReady=()=>FIREBASE.apiKey&&!FIREBASE.apiKey.startsWith('PASTE_')&&FIREBASE.databaseURL&&!FIREBASE.databaseURL.startsWith('PASTE_');try{ARCH=JSON.parse(localStorage.getItem(ARCHIVE_KEY))||[]}catch{ARCH=[]}
 const $=s=>document.querySelector(s),esc=s=>{const d=document.createElement('div');d.textContent=s;return d.innerHTML},save=()=>localStorage.setItem(KEY,JSON.stringify(S)),say=t=>$('#notice').textContent=t,pct=p=>p.g?Math.round(p.w/p.g*100):0;
 const key=(a,b)=>a<b?`${a}-${b}`:`${b}-${a}`;const ph=(a,b)=>S.partners[key(a.id,b.id)]||0;const oh=(a,b)=>S.opponents[key(a.id,b.id)]||0;
 function ranked(){return [...S.all].sort((a,b)=>b.w-a.w||pct(b)-pct(a)||a.l-b.l||a.n.localeCompare(b.n))}
@@ -39,7 +39,7 @@ function dbBase(){return FIREBASE.databaseURL.replace(/\/$/,'')}
 async function anonymousAuth(){
   let r;
   try{
-    r=await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${encodeURIComponent(FIREBASE.apiKey)}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({returnSecureToken:true})});
+    r=await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${FIREBASE.apiKey}`,{method:'POST',cache:'no-store',headers:{'Content-Type':'application/json'},body:JSON.stringify({returnSecureToken:true})});
   }catch(err){
     throw new Error(`Could not reach Firebase Authentication. Check your internet connection and try again. (${err.message||'network error'})`);
   }
