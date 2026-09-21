@@ -143,3 +143,36 @@ header,.session,nav,.courtCard,.previous,.nextMatch,.preview,.tablewrap,.viewerC
  .courtsGrid .courtPlayer b{font-size:11px}
  .courtsGrid .replaceOne{font-size:8px;padding:3px 5px;min-height:24px}
 }
+
+
+/* V10.11 — visible Picklebeer arena branding */
+html{background:#020b0f}
+body{position:relative;isolation:isolate;overflow-x:hidden}
+body::before{
+  content:"";position:fixed;inset:0;z-index:-3;pointer-events:none;opacity:1;
+  background:
+    linear-gradient(rgba(2,11,15,.83),rgba(2,11,15,.90)),
+    url('./icons/picklebeer-logo.png') left -105px top 120px/390px auto no-repeat,
+    url('./icons/picklebeer-logo.png') right -125px bottom 35px/420px auto no-repeat,
+    radial-gradient(circle at 12% 22%,rgba(68,255,101,.32),transparent 29%),
+    radial-gradient(circle at 88% 62%,rgba(193,255,0,.20),transparent 28%),
+    linear-gradient(135deg,#07301e 0%,#031318 42%,#020b0f 100%);
+}
+body::after{
+  content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.55;
+  background-image:
+    linear-gradient(115deg,transparent 0 12%,rgba(75,255,105,.08) 12.2% 12.6%,transparent 12.8% 100%),
+    repeating-linear-gradient(135deg,transparent 0 46px,rgba(116,255,132,.025) 47px 48px);
+}
+.app:before{content:"PLAY HARD  •  HAVE FUN  •  GOOD VIBES";color:rgba(114,255,137,.30)}
+.app:after{content:"DINK  •  ROTATE  •  REPEAT";color:rgba(211,255,18,.25)}
+header,.session,nav,.courtCard,.previous,.nextMatch,.preview,.tablewrap,.viewerCard,.viewerLock{background-color:rgba(5,22,24,.88)}
+.courtsGrid .courtPlayer{grid-template-columns:minmax(0,1fr) 30px!important}
+.courtsGrid .courtPlayer b{font-size:14px!important;padding-right:3px}
+.courtsGrid .replaceOne{width:30px!important;min-width:30px!important;max-width:30px!important;height:28px!important;min-height:28px!important;padding:0!important;font-size:15px!important;border-radius:7px!important;display:grid!important;place-items:center!important}
+.courtsGrid .team>button[data-win]{background:linear-gradient(180deg,#249fff,#0874d4)!important;border:1px solid #54b7ff!important;color:#fff!important}
+@media(max-width:700px){
+ body::before{background:linear-gradient(rgba(2,11,15,.89),rgba(2,11,15,.94)),url('./icons/picklebeer-logo.png') right -95px top 110px/260px auto no-repeat,radial-gradient(circle at 10% 18%,rgba(68,255,101,.25),transparent 30%),linear-gradient(135deg,#07301e,#020b0f 70%)}
+ .courtsGrid .courtPlayer b{font-size:13px!important}
+ .app:before,.app:after{display:none}
+}
