@@ -36,7 +36,28 @@ function loadSharedFromHash(){const m=location.hash.match(/^#session=(.+)$/);if(
 
 function liveSnapshot(){return {v:1,updatedAt:Date.now(),games:S.games,players:S.all.length,waiting:S.waiting.map(p=>({n:p.n,g:p.g,w:p.w,l:p.l})),courts:S.courts.map(c=>({id:c.id,p:c.p.map(p=>({n:p.n,g:p.g,w:p.w,l:p.l}))})),ranking:ranked().map((p,i)=>({rank:i+1,n:p.n,g:p.g,w:p.w,l:p.l,pct:pct(p)})),next:(()=>{const q=bestFour();return q?{a:q.slice(0,2).map(p=>p.n),b:q.slice(2).map(p=>p.n)}:null})(),previous:S.history[0]?{game:S.history[0].game,court:S.history[0].court,a:S.history[0].a,b:S.history[0].b,winner:S.history[0].winner}:null}}
 function dbBase(){return FIREBASE.databaseURL.replace(/\/$/,'')}
-async function anonymousAuth(){const r=await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${encodeURIComponent(FIREBASE.apiKey)}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({returnSecureToken:true})});if(!r.ok)throw new Error('Firebase Anonymous Authentication is not enabled.');return r.json()}
+async function anonymousAuth(){
+  let r;
+  try{
+    r=await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${encodeURIComponent(FIREBASE.apiKey)}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({returnSecureToken:true})});
+  }catch(err){
+    throw new Error(`Could not reach Firebase Authentication. Check your internet connection and try again. (${err.message||'network error'})`);
+  }
+  let body={};
+  try{body=await r.json()}catch{}
+  if(!r.ok){
+    const code=body?.error?.message||`HTTP_${r.status}`;
+    const friendly={
+      OPERATION_NOT_ALLOWED:'Anonymous Authentication is disabled in this Firebase project.',
+      API_KEY_INVALID:'The Firebase API key in this PickleQueue build is invalid.',
+      PROJECT_NOT_FOUND:'The Firebase project configured in PickleQueue could not be found.',
+      TOO_MANY_ATTEMPTS_TRY_LATER:'Firebase temporarily blocked authentication because of too many attempts. Please try again later.'
+    }[code];
+    throw new Error(friendly||`Firebase Authentication failed: ${code}`);
+  }
+  if(!body.idToken||!body.localId)throw new Error('Firebase Authentication returned an incomplete response.');
+  return body;
+}
 async function putLive(){if(!LIVE||!firebaseReady())return;const snap=liveSnapshot();const r=await fetch(`${dbBase()}/liveSessions/${LIVE.id}.json?auth=${encodeURIComponent(LIVE.token)}`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({owner:LIVE.uid,active:true,...snap})});if(r.status===401||r.status===403){LIVE=null;localStorage.removeItem(LIVE_KEY);throw new Error('Live session permission expired. Start Live Sharing again.')}if(!r.ok)throw new Error('Live sync failed.')}
 function scheduleLiveSync(){if(!LIVE||!firebaseReady())return;clearTimeout(liveSyncTimer);liveSyncTimer=setTimeout(()=>putLive().catch(e=>say(e.message)),250)}
 function liveUrl(){return location.href.split('#')[0]+'#live='+encodeURIComponent(LIVE.id)}
