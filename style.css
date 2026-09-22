@@ -176,3 +176,17 @@ header,.session,nav,.courtCard,.previous,.nextMatch,.preview,.tablewrap,.viewerC
  .courtsGrid .courtPlayer b{font-size:13px!important}
  .app:before,.app:after{display:none}
 }
+
+/* V10.12 — courts dashboard: In Play + Next Match side-by-side */
+.courtsDashboard{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,.85fr);gap:14px;align-items:start;margin-top:10px}
+.inPlayPanel,.matchSidePanel{min-width:0}
+.sectionLabel{display:flex;align-items:end;justify-content:space-between;gap:10px;margin:0 2px 8px}
+.sectionLabel b{font-size:12px;letter-spacing:.14em;color:#72f59a}.sectionLabel small{font-size:9px;color:#78919b;text-align:right}
+.matchSidePanel .nextMatch{margin-top:0;height:auto}
+.previousBelowNext{margin-top:12px}.previousBelowNext .previous{margin-top:0}
+.courtSwapWinner{width:100%;margin-top:9px;min-height:34px;padding:7px 8px;border-radius:9px;background:linear-gradient(180deg,#193b56,#102b3f);border:1px solid #2f86bd;color:#dff5ff;font-size:10px;font-weight:900}
+.courtSwapWinner:disabled{opacity:.38;cursor:not-allowed}
+.courtSwapHint{display:block;text-align:center;font-size:8px;color:#6f8c99;margin-top:4px}
+#nextMatchCourts{display:none!important}
+@media(max-width:780px){.courtsDashboard{grid-template-columns:1fr}.matchSidePanel{margin-top:4px}.sectionLabel{align-items:center}.courtsGrid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.courtsGrid{grid-template-columns:1fr}.courtsDashboard{gap:10px}.courtSwapWinner{min-height:32px;font-size:9px}}
